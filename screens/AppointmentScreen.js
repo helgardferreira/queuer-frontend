@@ -1,7 +1,6 @@
 // import * as WebBrowser from 'expo-web-browser';
 import React, { useEffect, useState } from 'react';
 //import { StyleSheet } from 'react-native';
-import NetworkService from '../service/NetworkService'
 import {
   Container,
   Content,
@@ -15,8 +14,6 @@ import {
 } from 'native-base';
 
 export default function AppointmentScreen(props) {
-
-  this.networkSrv = new NetworkService();
 
   const [appointmentArray, setAppointmentArray] = useState([]);
   
@@ -38,11 +35,11 @@ export default function AppointmentScreen(props) {
                 <Text>
                   Date: {appointment.startDate}
                 </Text>
-                <Button block danger onPress={() => cancelAppointment(this.networkSrv, appointment)}>
+                <Button block danger onPress={() => cancelAppointment(appointment)}>
                   <Text>Cancel the appointment</Text>
                 </Button>
                 {appointment.switchableAppointment && appointment.switchableAppointment.id &&
-                <Button block onPress={() => switchDate(this.networkSrv, appointment)}>
+                <Button block onPress={() => switchDate(appointment)}>
                   <Text>Change the time to </Text>
                 </Button>
                 }
@@ -65,19 +62,41 @@ export default function AppointmentScreen(props) {
   );
 }
 
+/*function getFmtDate(date) {
+  dt = new Date(date)
+
+
+}*/
+
 async function getAppointments() {
   let endpoint = 'https://35896ab7.ngrok.io/queuer/mybookings?id=' + 1
-  return this.networkSrv.get(endpoint)
+  return get(endpoint)
 }
 
-async function cancelAppointment(networkSrv, appointment) {
+async function cancelAppointment(appointment) {
   let endpoint = 'https://35896ab7.ngrok.io/queuer/cancel?id=' + appointment.id
-  networkSrv.get(endpoint)
+  get(endpoint)
 }
 
-async function switchDate(networkSrv, appointment) {
+function switchDate(appointment) {
   let endpoint = 'https://35896ab7.ngrok.io/queuer/switch?id='+ appointment.id + '&switchId=' + appointment.switchableAppointment.id
-  networkSrv.get(endpoint)
+  console.log(endpoint)
+  get(endpoint)
+}
+
+function get(endpoint) {
+
+  return fetch(endpoint, {
+      method: "GET"
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw Error(res.statusText);
+      }
+    })
+    .catch(error => console.error(error));
 }
 
 {
