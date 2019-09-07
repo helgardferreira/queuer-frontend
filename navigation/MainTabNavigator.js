@@ -6,7 +6,7 @@ import {
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import AppointmentScreen from '../screens/AppointmentScreen';
 import AuthScreen from '../screens/AuthScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
@@ -39,15 +39,15 @@ AuthStack.navigationOptions = {
 
 AuthStack.path = '';
 
-const HomeStack = createStackNavigator(
+const AppointmentStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Appointments: AppointmentScreen,
   },
   config,
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+AppointmentStack.navigationOptions = {
+  tabBarLabel: 'Appointments',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -60,7 +60,7 @@ HomeStack.navigationOptions = {
   ),
 };
 
-HomeStack.path = '';
+AppointmentStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -83,7 +83,7 @@ SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   // AuthStack,
-  HomeStack,
+  AppointmentStack,
   SettingsStack,
 });
 

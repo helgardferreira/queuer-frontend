@@ -18,17 +18,15 @@ import {
 export default function AuthScreen(props) {
   return (
     <Container>
-      <Content>
-        <Content style={styles.container}>
-          <Card style={styles.welcomeContainer} transparent>
-            <Image
-              source={require('../assets/images/ge-logo.png')}
-              style={styles.welcomeImage}
-            />
-          </Card>
+      <Content style={styles.container}>
+        <Card style={styles.welcomeContainer} transparent>
+          <Image
+            source={require('../assets/images/ge-logo.png')}
+            style={styles.welcomeImage}
+          />
+        </Card>
 
-          <FormExample {...props} />
-        </Content>
+        <FormExample {...props} />
       </Content>
     </Container>
   );
@@ -68,7 +66,7 @@ function FormExample(props) {
       <Button
         onPress={() => {
           if (validateForm(username, password)) {
-            props.navigation.navigate('Home');
+            props.navigation.navigate('Appointments');
           }
         }}
         style={styles.formButton}
