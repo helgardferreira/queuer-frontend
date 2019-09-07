@@ -1,12 +1,21 @@
 // import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Platform, StyleSheet } from 'react-native';
 
-import { Container, Content, Card } from 'native-base';
+import {
+  Container,
+  Content,
+  Form,
+  Item,
+  Input,
+  Card,
+  Button,
+  Text,
+} from 'native-base';
 
 // import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
+export default function AuthScreen(props) {
   return (
     <Container>
       <Content>
@@ -17,15 +26,64 @@ export default function HomeScreen() {
               style={styles.welcomeImage}
             />
           </Card>
+
+          <FormExample {...props} />
         </Content>
       </Content>
     </Container>
   );
 }
 
-HomeScreen.navigationOptions = {
-  title: 'Home',
+AuthScreen.navigationOptions = {
+  title: 'Log In',
 };
+
+function FormExample(props) {
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+
+  return (
+    <Form>
+      <Item last>
+        <Input
+          autoCapitalize="none"
+          placeholder="Username"
+          value={username}
+          onChange={({ nativeEvent: { text: username } }) =>
+            setUsername(username)
+          }
+        />
+      </Item>
+      <Item last>
+        <Input
+          autoCapitalize="none"
+          placeholder="Password"
+          value={password}
+          onChange={({ nativeEvent: { text: password } }) =>
+            setPassword(password)
+          }
+          secureTextEntry={true}
+        />
+      </Item>
+      <Button
+        onPress={() => {
+          if (validateForm(username, password)) {
+            props.navigation.navigate('Home');
+          }
+        }}
+        style={styles.formButton}
+      >
+        <Text>Log in</Text>
+      </Button>
+    </Form>
+  );
+}
+
+function validateForm(username, password) {
+  if (username === 'John Doe' && password === '123') {
+    return true;
+  }
+}
 
 // function handleLearnMorePress() {
 //   WebBrowser.openBrowserAsync(
@@ -72,7 +130,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 50,
   },
-  homeScreenFilename: {
+  AuthScreenFilename: {
     marginVertical: 7,
   },
   codeHighlightText: {
