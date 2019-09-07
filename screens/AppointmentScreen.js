@@ -1,6 +1,7 @@
 // import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 //import { StyleSheet } from 'react-native';
+import NetworkService from '../service/NetworkService'
 import {
   Container,
   Content,
@@ -9,57 +10,74 @@ import {
   Text,
   Icon,
   Right,
-  Header,
-  Body
+  Body,
+  Button
 } from 'native-base';
 
 export default function AppointmentScreen(props) {
-  const appointmentArray = [
-    { id: 0, heading: 'MRI Scan' },
-    { id: 1, heading: 'MRI Scan' },
-    { id: 2, heading: 'CT Scan' },
-    { id: 3, heading: 'X-Ray' },
-  ];
 
+  this.networkSrv = new NetworkService();
+
+  const [appointmentArray, setAppointmentArray] = useState([]);
+  
+
+  useEffect(() => {
+    getAppointments().then((data) => {setAppointmentArray(data)})
+  }, []);
+ 
   return (
     <Container>
       <Content>
-        {appointmentArray.map((appointment) => (
-          <Container key={appointment.id}>
-            <Header />
-            <Content padder>
-              <Card>
-                <CardItem header bordered>
-                  <Text>bla bla bla</Text>
-                </CardItem>
-                <CardItem bordered>
-                  <Body>
-                    <Text>
-                      NativeBase is a free and open source framework that enable
-                      developers to build
-                      high-quality mobile apps using React Native iOS and Android
-                      apps
-                      with a fusion of ES6.
-                  </Text>
-                    <Right>
-                      <Icon
-                        name="arrow-forward"
-                        onPress={() => props.navigation.navigate('QR')}
-                      />
-                    </Right>
-                  </Body>
-                </CardItem>
-                <CardItem footer bordered>
-                  <Text>GeekyAnts</Text>
-                </CardItem>
-              </Card>
-            </Content>
-          </Container>
+        {appointmentArray && appointmentArray.map((appointment) => (
+          <Card key={appointment.id}>
+            <CardItem header bordered>
+              <Text>MRI</Text>
+            </CardItem>
+            <CardItem bordered>
+              <Body>
+                <Text>
+                  Date: {appointment.startDate}
+                </Text>
+                <Button block danger onPress={() => cancelAppointment(this.networkSrv, appointment)}>
+                  <Text>Cancel the appointment</Text>
+                </Button>
+                {appointment.switchableAppointment && appointment.switchableAppointment.id &&
+                <Button block onPress={() => switchDate(this.networkSrv, appointment)}>
+                  <Text>Change the time to </Text>
+                </Button>
+                }
+                <Right>
+                  <Icon
+                    name="arrow-forward"
+                    onPress={() => props.navigation.navigate('QR')}
+                  />
+                </Right>
+              </Body>
+            </CardItem>
+            <CardItem footer bordered>
+              <Text>GeekyAnts</Text>
+            </CardItem>
+          </Card>
         )
         )}
       </Content>
     </Container>
   );
+}
+
+async function getAppointments() {
+  let endpoint = 'https://35896ab7.ngrok.io/queuer/mybookings?id=' + 1
+  return this.networkSrv.get(endpoint)
+}
+
+async function cancelAppointment(networkSrv, appointment) {
+  let endpoint = 'https://35896ab7.ngrok.io/queuer/cancel?id=' + appointment.id
+  networkSrv.get(endpoint)
+}
+
+async function switchDate(networkSrv, appointment) {
+  let endpoint = 'https://35896ab7.ngrok.io/queuer/switch?id='+ appointment.id + '&switchId=' + appointment.switchableAppointment.id
+  networkSrv.get(endpoint)
 }
 
 {
