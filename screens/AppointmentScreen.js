@@ -1,6 +1,6 @@
 // import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+//import { StyleSheet } from 'react-native';
 import {
   Container,
   Content,
@@ -9,6 +9,8 @@ import {
   Text,
   Icon,
   Right,
+  Header,
+  Body
 } from 'native-base';
 
 export default function AppointmentScreen(props) {
@@ -22,19 +24,39 @@ export default function AppointmentScreen(props) {
   return (
     <Container>
       <Content>
-        {appointmentArray.map(appointment => (
-          <Card key={appointment.id}>
-            <CardItem>
-              <Text>{appointment.heading}</Text>
-              <Right>
-                <Icon
-                  name="arrow-forward"
-                  onPress={() => props.navigation.navigate('QR')}
-                />
-              </Right>
-            </CardItem>
-          </Card>
-        ))}
+        {appointmentArray.map((appointment) => (
+          <Container key={appointment.id}>
+            <Header />
+            <Content padder>
+              <Card>
+                <CardItem header bordered>
+                  <Text>bla bla bla</Text>
+                </CardItem>
+                <CardItem bordered>
+                  <Body>
+                    <Text>
+                      NativeBase is a free and open source framework that enable
+                      developers to build
+                      high-quality mobile apps using React Native iOS and Android
+                      apps
+                      with a fusion of ES6.
+                  </Text>
+                    <Right>
+                      <Icon
+                        name="arrow-forward"
+                        onPress={() => props.navigation.navigate('QR')}
+                      />
+                    </Right>
+                  </Body>
+                </CardItem>
+                <CardItem footer bordered>
+                  <Text>GeekyAnts</Text>
+                </CardItem>
+              </Card>
+            </Content>
+          </Container>
+        )
+        )}
       </Content>
     </Container>
   );
@@ -85,7 +107,7 @@ AppointmentScreen.navigationOptions = {
 //   );
 // }
 
-const styles = StyleSheet.create({
+/*const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -102,4 +124,4 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginTop: 3,
   },
-});
+});*/
