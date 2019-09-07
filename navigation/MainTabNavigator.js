@@ -8,12 +8,26 @@ import {
 import TabBarIcon from '../components/TabBarIcon';
 import AppointmentScreen from '../screens/AppointmentScreen';
 import AuthScreen from '../screens/AuthScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import QRScreen from '../screens/QRScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
+
+const QRStack = createStackNavigator(
+  {
+    Auth: QRScreen,
+  },
+  config,
+);
+
+QRStack.navigationOptions = {
+  tabBarLabel: 'QR',
+};
+
+QRStack.path = '';
 
 const AuthStack = createStackNavigator(
   {
@@ -62,15 +76,15 @@ AppointmentStack.navigationOptions = {
 
 AppointmentStack.path = '';
 
-const SettingsStack = createStackNavigator(
+const ProfileStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Profile: ProfileScreen,
   },
   config,
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+ProfileStack.navigationOptions = {
+  tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -79,14 +93,14 @@ SettingsStack.navigationOptions = {
   ),
 };
 
-SettingsStack.path = '';
+ProfileStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   // AuthStack,
   AppointmentStack,
-  SettingsStack,
+  ProfileStack,
 });
 
 tabNavigator.path = '';
 
-export { tabNavigator, AuthStack };
+export { tabNavigator, AuthStack, QRStack };

@@ -11,9 +11,8 @@ import {
   Card,
   Button,
   Text,
+  CardItem,
 } from 'native-base';
-
-// import { MonoText } from '../components/StyledText';
 
 export default function AuthScreen(props) {
   return (
@@ -21,11 +20,13 @@ export default function AuthScreen(props) {
       <Content style={styles.container}>
         <Card style={styles.welcomeContainer} transparent>
           <Image
-            source={require('../assets/images/ge-logo.png')}
+            source={require('../assets/images/queuer-logo.png')}
             style={styles.welcomeImage}
           />
+          <CardItem>
+            <Text>Efficiency and Care</Text>
+          </CardItem>
         </Card>
-
         <FormExample {...props} />
       </Content>
     </Container>

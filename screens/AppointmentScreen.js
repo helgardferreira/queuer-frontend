@@ -11,16 +11,12 @@ import {
   Right,
 } from 'native-base';
 
-export default function AppointmentScreen() {
+export default function AppointmentScreen(props) {
   const appointmentArray = [
-    { id: 0, heading: 'My Appointment' },
-    { id: 1, heading: 'My Appointment' },
-    { id: 2, heading: 'My Appointment' },
-    { id: 3, heading: 'My Appointment' },
-    { id: 4, heading: 'My Appointment' },
-    { id: 5, heading: 'My Appointment' },
-    { id: 6, heading: 'My Appointment' },
-    { id: 7, heading: 'My Appointment' },
+    { id: 0, heading: 'MRI Scan' },
+    { id: 1, heading: 'MRI Scan' },
+    { id: 2, heading: 'CT Scan' },
+    { id: 3, heading: 'X-Ray' },
   ];
 
   return (
@@ -31,7 +27,10 @@ export default function AppointmentScreen() {
             <CardItem>
               <Text>{appointment.heading}</Text>
               <Right>
-                <Icon name="arrow-forward" />
+                <Icon
+                  name="arrow-forward"
+                  onPress={() => props.navigation.navigate('QR')}
+                />
               </Right>
             </CardItem>
           </Card>
