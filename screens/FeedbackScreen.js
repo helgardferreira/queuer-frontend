@@ -1,80 +1,93 @@
 // import * as WebBrowser from 'expo-web-browser';
 import React, { useState } from 'react';
-import { StyleSheet, Label, Slider } from 'react-native';
+import { StyleSheet, Slider } from 'react-native';
+import { Label } from 'native-base';
 
 import {
   Container,
   Content,
   Form,
   Item,
-  Input,
+  Textarea,
   Button,
   Text,
 } from 'native-base';
 
-export default function AuthScreen(props) {
+export default function FeedbackScreen() {
+  const [satisfactionLevel, setSatisfactionLevel] = useState(5);
+  const [professionalismLevel, setProfessionalismLevel] = useState(5);
+  const [
+    professionalismImportanceLevel,
+    setProfessionalismImportanceLevel,
+  ] = useState(5);
+  const [knowledgeLevel, setKnowledgeLevel] = useState(5);
+
   return (
     <Container>
       <Content style={styles.container}>
-        <SatisfactionForm {...props} />
+        <Form>
+          <Item stackedLabel last style={styles.sliderItem}>
+            <Text>How satisfied were you with your appointment?</Text>
+            <Slider
+              style={styles.slider}
+              minimumValue={0}
+              maximumValue={10}
+              value={satisfactionLevel}
+              onValueChange={val => setSatisfactionLevel(val)}
+              step={1}
+            />
+          </Item>
+          <Item stackedLabel last style={styles.sliderItem}>
+            <Text>How professional was the radiologist?</Text>
+            <Slider
+              style={styles.slider}
+              minimumValue={0}
+              maximumValue={10}
+              value={professionalismLevel}
+              onValueChange={val => setProfessionalismLevel(val)}
+              step={1}
+            />
+          </Item>
+          <Item stackedLabel last style={styles.sliderItem}>
+            <Text>How important is professionalism to you?</Text>
+            <Slider
+              style={styles.slider}
+              minimumValue={0}
+              maximumValue={10}
+              value={professionalismImportanceLevel}
+              onValueChange={val => setProfessionalismImportanceLevel(val)}
+              step={1}
+            />
+          </Item>
+          <Item stackedLabel last style={styles.sliderItem}>
+            <Text>How knowledgeable was the radiologist?</Text>
+            <Slider
+              style={styles.slider}
+              minimumValue={0}
+              maximumValue={10}
+              value={knowledgeLevel}
+              onValueChange={val => setKnowledgeLevel(val)}
+              step={1}
+            />
+          </Item>
+
+          <Item stackedLabel last>
+            <Label>What can we do differently?</Label>
+            <Textarea rowSpan={5} bordered style={styles.textArea} />
+          </Item>
+
+          <Button onPress={() => {}} style={styles.formButton}>
+            <Text>Submit</Text>
+          </Button>
+        </Form>
       </Content>
     </Container>
   );
 }
 
-AuthScreen.navigationOptions = {
+FeedbackScreen.navigationOptions = {
   title: 'Feedback',
 };
-
-function SatisfactionForm(props) {
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-
-  return (
-    <Form>
-      <Item last>
-        <Input
-          autoCapitalize="none"
-          placeholder="How did it go?"
-          value={username}
-          onChange={({ nativeEvent: { text: username } }) =>
-            setUsername(username)
-          }
-        />
-      </Item>
-
-      {/* <Item floatingLabel>
-        <Label>How satisfied are you after you appointment?</Label>
-        <Input 
-          autoCapitalize="none"
-          
-        />
-        <Slider minimumValue={0} maximumValue={10} />
-      </Item>
-      <Item floatingLabel last>
-        <Label>Password</Label>
-        <Input />
-      </Item> */}
-
-      <Button
-        onPress={() => {
-          if (validateForm(username, password)) {
-            props.navigation.navigate('Appointments');
-          }
-        }}
-        style={styles.formButton}
-      >
-        <Text>Submit</Text>
-      </Button>
-    </Form>
-  );
-}
-
-function validateForm(username, password) {
-  if (username === 'John Doe' && password === '123') {
-    return true;
-  }
-}
 
 // function handleLearnMorePress() {
 //   WebBrowser.openBrowserAsync(
@@ -95,5 +108,23 @@ const styles = StyleSheet.create({
   },
   formButton: {
     margin: 10,
+  },
+  slider: {
+    width: 300,
+    height: 40,
+  },
+  sliderItem: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    textAlign: 'center',
+  },
+  sliderText: {
+    margin: '0, auto',
+    width: 50,
+  },
+  textArea: {
+    marginTop: 10,
+    marginBottom: 10,
+    width: 300,
   },
 });
