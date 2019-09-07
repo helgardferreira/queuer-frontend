@@ -10,6 +10,7 @@ import AppointmentScreen from '../screens/AppointmentScreen';
 import AuthScreen from '../screens/AuthScreen';
 import QRScreen from '../screens/QRScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import FeedbackScreen from '../screens/FeedbackScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -18,7 +19,7 @@ const config = Platform.select({
 
 const QRStack = createStackNavigator(
   {
-    Auth: QRScreen,
+    QR: QRScreen,
   },
   config,
 );
@@ -28,6 +29,19 @@ QRStack.navigationOptions = {
 };
 
 QRStack.path = '';
+
+const FeedbackStack = createStackNavigator(
+  {
+    Feedback: FeedbackScreen,
+  },
+  config,
+);
+
+FeedbackStack.navigationOptions = {
+  tabBarLabel: 'Feedback',
+};
+
+FeedbackStack.path = '';
 
 const AuthStack = createStackNavigator(
   {
@@ -103,4 +117,4 @@ const tabNavigator = createBottomTabNavigator({
 
 tabNavigator.path = '';
 
-export { tabNavigator, AuthStack, QRStack };
+export { tabNavigator, AuthStack, QRStack, FeedbackStack };

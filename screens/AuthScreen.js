@@ -67,7 +67,7 @@ function FormExample(props) {
       <Button
         onPress={() => {
           if (validateForm(username, password)) {
-            props.navigation.navigate('Appointments');
+            props.navigation.navigate('Feedback');
           }
         }}
         style={styles.formButton}
