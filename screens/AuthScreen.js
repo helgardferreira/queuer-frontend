@@ -82,6 +82,9 @@ function validateForm(username, password) {
   if (username === 'John Doe' && password === '123') {
     return true;
   }
+  if (username === 'Roberto' && password === 'whatsthisshit') {
+    return true;
+  }
 }
 
 // function handleLearnMorePress() {
