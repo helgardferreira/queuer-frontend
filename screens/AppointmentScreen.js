@@ -15,13 +15,14 @@ import {
 
 export default function AppointmentScreen(props) {
 
+
   const [appointmentArray, setAppointmentArray] = useState([]);
-  
+
 
   useEffect(() => {
-    getAppointments().then((data) => {setAppointmentArray(data)})
+    getAppointments().then((data) => { setAppointmentArray(data) })
   }, []);
- 
+
   return (
     <Container>
       <Content>
@@ -33,26 +34,28 @@ export default function AppointmentScreen(props) {
             <CardItem bordered>
               <Body>
                 <Text>
-                  Date: {appointment.startDate}
+                  Date: {getFmtDate(appointment.startDate)}
+                </Text>
+                <Text>
+                  Time: {getFmtTime(appointment.startDate)}
                 </Text>
                 <Button block danger onPress={() => cancelAppointment(appointment)}>
                   <Text>Cancel the appointment</Text>
                 </Button>
                 {appointment.switchableAppointment && appointment.switchableAppointment.id &&
-                <Button block onPress={() => switchDate(appointment)}>
-                  <Text>Change the time to </Text>
-                </Button>
+                  <Button block onPress={() => switchDate(appointment)}>
+                    <Text>Change the time to </Text>
+                  </Button>
                 }
-                <Right>
-                  <Icon
-                    name="arrow-forward"
-                    onPress={() => props.navigation.navigate('QR')}
-                  />
-                </Right>
               </Body>
             </CardItem>
             <CardItem footer bordered>
-              <Text>GeekyAnts</Text>
+              <Right>
+                <Icon
+                  name="arrow-forward"
+                  onPress={() => props.navigation.navigate('QR')}
+                />
+              </Right>
             </CardItem>
           </Card>
         )
@@ -62,11 +65,29 @@ export default function AppointmentScreen(props) {
   );
 }
 
-/*function getFmtDate(date) {
-  dt = new Date(date)
+function getFmtDate(dt) {
+  const monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
 
+  var date = new Date(dt)
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+  
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+}
 
-}*/
+function getFmtTime(dt) {
+  var date = new Date(dt);
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+
+  return hours + ':' + minutes
+}
 
 async function getAppointments() {
   let endpoint = 'https://35896ab7.ngrok.io/queuer/mybookings?id=' + 1
@@ -79,7 +100,7 @@ async function cancelAppointment(appointment) {
 }
 
 function switchDate(appointment) {
-  let endpoint = 'https://35896ab7.ngrok.io/queuer/switch?id='+ appointment.id + '&switchId=' + appointment.switchableAppointment.id
+  let endpoint = 'https://35896ab7.ngrok.io/queuer/switch?id=' + appointment.id + '&switchId=' + appointment.switchableAppointment.id
   console.log(endpoint)
   get(endpoint)
 }
@@ -87,8 +108,8 @@ function switchDate(appointment) {
 function get(endpoint) {
 
   return fetch(endpoint, {
-      method: "GET"
-    })
+    method: "GET"
+  })
     .then(res => {
       if (res.ok) {
         return res.json();
