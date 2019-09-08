@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   Container,
@@ -9,14 +9,24 @@ import {
   Body,
   Button,
 } from 'native-base';
+import UserContext from '../lib/UserContext';
 
 export default function AppointmentScreen(props) {
   const [appointmentArray, setAppointmentArray] = useState([]);
+  const userDetails = useContext(UserContext);
+  console.log(userDetails);
 
   useEffect(() => {
-    getAppointments().then(data => {
-      setAppointmentArray(data);
-    });
+    // getAppointments().then(data => {
+    //   setAppointmentArray(data);
+    // });
+    setAppointmentArray([
+      {
+        id: '',
+        startDate: '',
+        switchableAppointment: false,
+      },
+    ]);
   }, []);
 
   return (
@@ -26,13 +36,14 @@ export default function AppointmentScreen(props) {
           appointmentArray.map(appointment => (
             <Card key={appointment.id}>
               <CardItem header bordered>
-                <Text>MRI</Text>
+                <Text>{}</Text>
               </CardItem>
               <CardItem bordered>
                 <Body>
                   <Text>Date: {getFmtDate(appointment.startDate)}</Text>
                   <Text>Time: {getFmtTime(appointment.startDate)}</Text>
                   <Button
+                    style={styles.cardButton}
                     block
                     danger
                     onPress={() => cancelAppointment(appointment)}
@@ -41,11 +52,19 @@ export default function AppointmentScreen(props) {
                   </Button>
                   {appointment.switchableAppointment &&
                     appointment.switchableAppointment.id && (
-                      <Button block onPress={() => switchDate(appointment)}>
+                      <Button
+                        style={styles.cardButton}
+                        block
+                        onPress={() => switchDate(appointment)}
+                      >
                         <Text>Change the time to </Text>
                       </Button>
                     )}
-                  <Button block onPress={() => props.navigation.navigate('QR')}>
+                  <Button
+                    style={styles.cardButton}
+                    block
+                    onPress={() => props.navigation.navigate('QR')}
+                  >
                     <Text>View QR</Text>
                   </Button>
                 </Body>

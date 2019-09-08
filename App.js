@@ -4,6 +4,7 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import UserContext from './lib/UserContext';
 
 // import Amplify from 'aws-amplify';
 // import awsconfig from './aws-exports';
@@ -26,10 +27,22 @@ export default function App(props) {
     );
   } else {
     return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator />
-      </View>
+      <UserContext.Provider
+        value={{
+          name: 'John Doe',
+          age: 21,
+          gender: 'Male',
+          dateOfBirth: '1997-11-20',
+          city: 'Munich',
+          country: 'Germany',
+          address: '12 Foo Bar St.',
+        }}
+      >
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <AppNavigator />
+        </View>
+      </UserContext.Provider>
     );
   }
 }
