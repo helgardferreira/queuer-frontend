@@ -17,10 +17,10 @@ export default function AppointmentScreen(props) {
   console.log(userDetails);
 
   useEffect(() => {
-    getAppointments().then(data => {
+    getAppointments(userDetails).then(data => {
       setAppointmentArray(data);
     });
-  }, []);
+  }, [userDetails]);
 
   return (
     <Container>
@@ -104,9 +104,9 @@ function getFmtTime(dt) {
   return hours + ':' + minutes;
 }
 
-async function getAppointments() {
+async function getAppointments(userDetails) {
   let id = 0;
-  if (this.userDetails.name == 'John Doe') {
+  if (userDetails.name == 'John Doe') {
     id = '4'
   } else {
     id = '1'
