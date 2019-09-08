@@ -8,7 +8,6 @@ import {
   Text,
   Body,
   Button,
-  Icon,
 } from 'native-base';
 import UserContext from '../lib/UserContext';
 

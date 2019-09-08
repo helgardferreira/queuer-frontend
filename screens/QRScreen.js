@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   Container,
@@ -12,10 +12,12 @@ import {
   Card,
 } from 'native-base';
 import QRCode from 'react-native-qrcode';
+import UserContext from '../lib/UserContext';
 
 export default function ProfileScreen(props) {
+  const userDetails = useContext(UserContext);
   const bookingData = {
-    name: 'John Doe',
+    name: userDetails.name,
     age: 21,
     gender: 'Male',
     dateOfBirth: '1997-11-20',
