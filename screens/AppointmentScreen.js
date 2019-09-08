@@ -17,16 +17,9 @@ export default function AppointmentScreen(props) {
   console.log(userDetails);
 
   useEffect(() => {
-    // getAppointments().then(data => {
-    //   setAppointmentArray(data);
-    // });
-    setAppointmentArray([
-      {
-        id: '',
-        startDate: '',
-        switchableAppointment: false,
-      },
-    ]);
+    getAppointments().then(data => {
+      setAppointmentArray(data);
+    });
   }, []);
 
   return (
@@ -112,18 +105,18 @@ function getFmtTime(dt) {
 }
 
 async function getAppointments() {
-  let endpoint = 'https://35896ab7.ngrok.io/queuer/mybookings?id=' + 1;
+  let endpoint = 'https://b7ac2266.ngrok.io/queuer/mybookings?id=' + 1;
   return get(endpoint);
 }
 
 async function cancelAppointment(appointment) {
-  let endpoint = 'https://35896ab7.ngrok.io/queuer/cancel?id=' + appointment.id;
+  let endpoint = 'https://b7ac2266.ngrok.io/queuer/cancel?id=' + appointment.id;
   get(endpoint);
 }
 
 function switchDate(appointment) {
   let endpoint =
-    'https://35896ab7.ngrok.io/queuer/switch?id=' +
+    'https://b7ac2266.ngrok.io/queuer/switch?id=' +
     appointment.id +
     '&switchId=' +
     appointment.switchableAppointment.id;
