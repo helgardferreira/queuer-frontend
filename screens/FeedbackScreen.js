@@ -1,10 +1,10 @@
 // import * as WebBrowser from 'expo-web-browser';
 import React, { useState } from 'react';
-import { StyleSheet, Slider } from 'react-native';
+import { StyleSheet, Slider, KeyboardAvoidingView } from 'react-native';
 import { Label } from 'native-base';
 
 import {
-  Container,
+  // Container,
   Content,
   Form,
   Item,
@@ -13,7 +13,7 @@ import {
   Text,
 } from 'native-base';
 
-export default function FeedbackScreen() {
+export default function FeedbackScreen(props) {
   const [satisfactionLevel, setSatisfactionLevel] = useState(5);
   const [professionalismLevel, setProfessionalismLevel] = useState(5);
   const [
@@ -23,7 +23,7 @@ export default function FeedbackScreen() {
   const [knowledgeLevel, setKnowledgeLevel] = useState(5);
 
   return (
-    <Container>
+    <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
       <Content style={styles.container}>
         <Form>
           <Item stackedLabel last style={styles.sliderItem}>
@@ -76,12 +76,15 @@ export default function FeedbackScreen() {
             <Textarea rowSpan={5} bordered style={styles.textArea} />
           </Item>
 
-          <Button onPress={() => {}} style={styles.formButton}>
+          <Button
+            onPress={() => props.navigation.navigate('Appointments')}
+            style={styles.formButton}
+          >
             <Text>Submit</Text>
           </Button>
         </Form>
       </Content>
-    </Container>
+    </KeyboardAvoidingView>
   );
 }
 

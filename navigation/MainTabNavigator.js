@@ -53,16 +53,6 @@ const AuthStack = createStackNavigator(
 AuthStack.navigationOptions = {
   tabBarLabel: 'Auth',
   tabBarVisible: false,
-  // tabBarIcon: ({ focused }) => (
-  //   <TabBarIcon
-  //     focused={focused}
-  //     name={
-  //       Platform.OS === 'ios'
-  //         ? `ios-information-circle${focused ? '' : '-outline'}`
-  //         : 'md-information-circle'
-  //     }
-  //   />
-  // ),
 };
 
 AuthStack.path = '';
@@ -117,4 +107,4 @@ const tabNavigator = createBottomTabNavigator({
 
 tabNavigator.path = '';
 
-export { tabNavigator, AuthStack, QRStack, FeedbackStack };
+export { tabNavigator, AuthStack, FeedbackStack, QRStack };

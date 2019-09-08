@@ -9,6 +9,7 @@ import {
   Left,
   Body,
   Title,
+  Card,
 } from 'native-base';
 import QRCode from 'react-native-qrcode';
 
@@ -32,7 +33,7 @@ export default function ProfileScreen(props) {
             }}
             style={styles.formButton}
           >
-            <Text>Back</Text>
+            <Text style={styles.formButtonText}>Back</Text>
           </Button>
         </Left>
         <Body>
@@ -40,15 +41,14 @@ export default function ProfileScreen(props) {
         </Body>
       </Header>
       <Content contentContainerStyle={{ justifyContent: 'center', flex: 1 }}>
-        {/* <Card style={styles.welcomeContainer} transparent> */}
-
-        <QRCode
-          value={JSON.stringify(bookingData)}
-          size={200}
-          bgColor="#3B73B9"
-          fgColor="white"
-        />
-        {/* </Card> */}
+        <Card style={styles.welcomeContainer} transparent>
+          <QRCode
+            value={JSON.stringify(bookingData)}
+            size={300}
+            bgColor="#3B73B9"
+            fgColor="white"
+          />
+        </Card>
       </Content>
     </Container>
   );
@@ -66,5 +66,11 @@ const styles = StyleSheet.create({
   welcomeContainer: {
     alignItems: 'center',
     // height: 400,
+  },
+  formButton: {
+    color: 'white',
+  },
+  formButtonText: {
+    color: 'white',
   },
 });
