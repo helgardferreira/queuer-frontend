@@ -8,19 +8,22 @@ import {
   Text,
   Body,
   Button,
+  Icon,
 } from 'native-base';
 import UserContext from '../lib/UserContext';
 
 export default function AppointmentScreen(props) {
   const [appointmentArray, setAppointmentArray] = useState([]);
   const userDetails = useContext(UserContext);
+  const [refreshFlag, setRefreshFlag] = useState(false);
   console.log(userDetails);
 
   useEffect(() => {
+    console.log('Getting data...');
     getAppointments(userDetails).then(data => {
       setAppointmentArray(data);
     });
-  }, [userDetails]);
+  }, [userDetails, refreshFlag]);
 
   return (
     <Container>
@@ -67,6 +70,15 @@ export default function AppointmentScreen(props) {
               </CardItem>
             </Card>
           ))}
+        <Button
+          block
+          onPress={() => {
+            setRefreshFlag(!refreshFlag);
+            console.log(refreshFlag);
+          }}
+        >
+          <Text>Refresh</Text>
+        </Button>
       </Content>
     </Container>
   );
@@ -107,9 +119,9 @@ function getFmtTime(dt) {
 async function getAppointments(userDetails) {
   let id = 0;
   if (userDetails.name == 'John Doe') {
-    id = '4'
+    id = '4';
   } else {
-    id = '1'
+    id = '1';
   }
 
   let endpoint = 'https://b7ac2266.ngrok.io/queuer/mybookings?id=' + id;
