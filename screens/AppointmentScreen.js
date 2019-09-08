@@ -14,16 +14,9 @@ export default function AppointmentScreen(props) {
   const [appointmentArray, setAppointmentArray] = useState([]);
 
   useEffect(() => {
-    // getAppointments().then(data => {
-    //   setAppointmentArray(data);
-    // });
-    setAppointmentArray([
-      {
-        id: '',
-        startDate: '',
-        switchableAppointment: false,
-      },
-    ]);
+    getAppointments().then(data => {
+      setAppointmentArray(data);
+    });
   }, []);
 
   return (
@@ -37,9 +30,9 @@ export default function AppointmentScreen(props) {
               </CardItem>
               <CardItem bordered>
                 <Body>
-                  <Text>Date: {appointment.startDate}</Text>
+                  <Text>Date: {getFmtDate(appointment.startDate)}</Text>
+                  <Text>Time: {getFmtTime(appointment.startDate)}</Text>
                   <Button
-                    style={styles.cardButton}
                     block
                     danger
                     onPress={() => cancelAppointment(appointment)}
@@ -48,19 +41,11 @@ export default function AppointmentScreen(props) {
                   </Button>
                   {appointment.switchableAppointment &&
                     appointment.switchableAppointment.id && (
-                      <Button
-                        style={styles.cardButton}
-                        block
-                        onPress={() => switchDate(appointment)}
-                      >
+                      <Button block onPress={() => switchDate(appointment)}>
                         <Text>Change the time to </Text>
                       </Button>
                     )}
-                  <Button
-                    style={styles.cardButton}
-                    block
-                    onPress={() => props.navigation.navigate('QR')}
-                  >
+                  <Button block onPress={() => props.navigation.navigate('QR')}>
                     <Text>View QR</Text>
                   </Button>
                 </Body>
@@ -75,8 +60,36 @@ export default function AppointmentScreen(props) {
   );
 }
 
-function getFmtDate(date) {
-  const dt = new Date(date);
+function getFmtDate(dt) {
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  var date = new Date(dt);
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+}
+
+function getFmtTime(dt) {
+  var date = new Date(dt);
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+
+  return hours + ':' + minutes;
 }
 
 async function getAppointments() {
@@ -95,6 +108,7 @@ function switchDate(appointment) {
     appointment.id +
     '&switchId=' +
     appointment.switchableAppointment.id;
+  console.log(endpoint);
   get(endpoint);
 }
 
