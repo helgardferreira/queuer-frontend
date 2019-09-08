@@ -105,7 +105,14 @@ function getFmtTime(dt) {
 }
 
 async function getAppointments() {
-  let endpoint = 'https://b7ac2266.ngrok.io/queuer/mybookings?id=' + 1;
+  let id = 0;
+  if (this.userDetails.name == 'John Doe') {
+    id = '4'
+  } else {
+    id = '1'
+  }
+
+  let endpoint = 'https://b7ac2266.ngrok.io/queuer/mybookings?id=' + id;
   return get(endpoint);
 }
 

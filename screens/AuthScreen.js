@@ -1,7 +1,7 @@
 // import * as WebBrowser from 'expo-web-browser';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Image, Platform, StyleSheet } from 'react-native';
-
+import UserContext from '../lib/UserContext'
 import {
   Container,
   Content,
@@ -15,6 +15,9 @@ import {
 } from 'native-base';
 
 export default function AuthScreen(props) {
+
+  
+
   return (
     <Container>
       <Content style={styles.container}>
@@ -40,7 +43,7 @@ AuthScreen.navigationOptions = {
 function FormExample(props) {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-
+  const userDetails = useContext(UserContext);
   return (
     <Form>
       <Item last>
@@ -68,6 +71,7 @@ function FormExample(props) {
         onPress={() => {
           if (validateForm(username, password)) {
             props.navigation.navigate('Appointments');
+            userDetails.name = username
           }
         }}
         style={styles.formButton}
