@@ -110,7 +110,7 @@ function getFmtDate(dt) {
 
 function getFmtTime(dt) {
   var date = new Date(dt);
-  var hours = date.getHours();
+  var hours = date.getHours() - 2;
   var minutes = date.getMinutes();
 
   return hours + ':' + minutes;
