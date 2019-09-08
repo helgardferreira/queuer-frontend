@@ -123,18 +123,18 @@ async function getAppointments(userDetails) {
     id = '1';
   }
 
-  let endpoint = 'https://b7ac2266.ngrok.io/queuer/mybookings?id=' + id;
+  let endpoint = 'https://2ee5156f.ngrok.io/queuer/mybookings?id=' + id;
   return get(endpoint);
 }
 
 async function cancelAppointment(appointment) {
-  let endpoint = 'https://b7ac2266.ngrok.io/queuer/cancel?id=' + appointment.id;
+  let endpoint = 'https://2ee5156f.ngrok.io/queuer/cancel?id=' + appointment.id;
   get(endpoint);
 }
 
 function switchDate(appointment) {
   let endpoint =
-    'https://b7ac2266.ngrok.io/queuer/switch?id=' +
+    'https://2ee5156f.ngrok.io/queuer/switch?id=' +
     appointment.id +
     '&switchId=' +
     appointment.switchableAppointment.id;
