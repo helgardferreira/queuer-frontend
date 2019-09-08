@@ -52,7 +52,7 @@ export default function AppointmentScreen(props) {
                         block
                         onPress={() => switchDate(appointment)}
                       >
-                        <Text>Change the time to </Text>
+                        <Text>Change the time to {getFmtTime(appointment.switchableAppointment.startDate)}</Text>
                       </Button>
                     )}
                   <Button
